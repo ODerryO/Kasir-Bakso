@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Bakso</title>
+    <title>Kasir Bakso</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
-<header>
-    Menu Makanan
-</header>
+<header>Kasir Bakso</header>
 
+<!-- Menu Grid -->
 <div id="menu"></div>
 
-<!-- Form untuk input nama pelanggan atau nomor meja -->
+<!-- Form input pelanggan -->
 <form id="order-form">
     <label for="customer-name">Nama Pelanggan / Nomor Meja</label>
     <input type="text" id="customer-name" placeholder="Masukkan nama atau nomor meja">
+
     <button type="button" onclick="checkout()">Checkout</button>
     <button type="button" class="reset-button" onclick="resetManual()">Reset Transaksi</button>
+    <button type="button" class="export-button" onclick="exportToExcel()">Export ke Excel</button>
 </form>
 
-<!-- Keranjang dan Total -->
+<!-- Keranjang -->
 <div id="cart">
     <ul id="cart-list"></ul>
     <div id="total">Total: Rp 0</div>

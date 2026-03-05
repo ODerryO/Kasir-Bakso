@@ -1,3 +1,4 @@
+/* Body & Header */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
@@ -17,6 +18,7 @@ header {
     color: #333;
 }
 
+/* Menu Grid */
 #menu {
     display: flex;
     flex-direction: column;
@@ -40,9 +42,10 @@ header {
     margin-bottom: 10px;
 }
 
+/* Hanya kategori tertentu di grid */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 kolom per baris */
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-top: 10px;
 }
@@ -51,71 +54,88 @@ header {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     color: #333;
     height: 150px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .menu-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
     background-color: #f1f1f1;
 }
 
-.menu-item p {
-    margin: 0;
-}
-
-#cart {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Form input */
+form {
+    width: 100%;
+    max-width: 500px;
     margin-top: 30px;
-    width: 100%;
-    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 18px;
-    padding: 12px;
+input[type="text"] {
     width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76,175,80,0.5);
+}
+
+/* Tombol */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
     transition: background-color 0.3s;
+}
+
+button:hover { opacity: 0.9; }
+
+.reset-button { background-color: #ff4c4c; color: #fff; }
+.reset-button:hover { background-color: #e43d3d; }
+
+.export-button { background-color: #2196F3; color: #fff; }
+.export-button:hover { background-color: #1976D2; }
+
+button:not(.reset-button):not(.export-button) { background-color: #4CAF50; color: #fff; }
+
+#cart {
+    width: 100%;
+    max-width: 400px;
     margin-top: 20px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-button:active {
-    background-color: #3e8e41;
-}
-
-#total {
-    font-size: 22px;
-    font-weight: bold;
-    text-align: right;
-    margin-top: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 #cart-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 #cart-list li {
@@ -123,126 +143,23 @@ button:active {
     font-size: 16px;
 }
 
-/* Menambah gaya untuk form input */
-input[type="text"], input[type="number"] {
-    padding: 12px;
-    width: 100%;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input[type="text"]:focus, input[type="number"]:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-input[type="text"]:hover, input[type="number"]:hover {
-    border-color: #45a049;
-}
-
-input[type="text"]::placeholder, input[type="number"]::placeholder {
-    color: #999;
-}
-
-label {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 8px;
-    display: block;
-}
-
-/* Reset CSS untuk elemen form lainnya */
-form {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-/* Gaya untuk tombol reset */
-.reset-button {
-    background-color: #ff4c4c;
-    color: white;
+#total {
+    font-weight: bold;
     font-size: 18px;
-    padding: 12px;
-    width: 100%;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 20px;
+    text-align: right;
 }
 
-.reset-button:hover {
-    background-color: #e43d3d;
-}
-
-.reset-button:active {
-    background-color: #d32f2f;
-}
-
-/* Media Queries untuk tampilan responsif */
+/* Media Queries untuk Responsif */
 @media (max-width: 768px) {
-    /* Untuk Tablet */
-    header {
-        font-size: 24px;
-    }
-
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 kolom per baris untuk tablet */
-    }
-
-    .category h3 {
-        font-size: 24px;
-    }
-
-    button {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    input[type="text"], input[type="number"] {
-        font-size: 14px;
-    }
-
-    #cart {
-        width: 100%;
-        max-width: 350px;
-    }
+    .menu-grid { grid-template-columns: repeat(2, 1fr); }
+    .category h3 { font-size: 24px; }
+    header { font-size: 24px; }
 }
 
 @media (max-width: 480px) {
-    /* Untuk Smartphone */
-    header {
-        font-size: 20px;
-    }
-
-    .menu-grid {
-        grid-template-columns: repeat(1, 1fr); /* 1 kolom per baris untuk smartphone */
-    }
-
-    .category h3 {
-        font-size: 20px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    input[type="text"], input[type="number"] {
-        font-size: 12px;
-    }
-
-    #cart {
-        width: 100%;
-        max-width: 300px;
-    }
+    .menu-grid { grid-template-columns: repeat(1, 1fr); }
+    .category h3 { font-size: 20px; }
+    header { font-size: 20px; }
+    input, button { font-size: 14px; padding: 10px; }
+    #cart { max-width: 300px; }
 }

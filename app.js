@@ -1,7 +1,7 @@
 let cart = [];
 let total = 0;
 
-// Daftar Menu Bakso dan Makanan Lainnya
+// Menu Items
 const menuItems = {
     "Bakso": [
         { name: "Bakso Biasa", price: 15000 },
@@ -38,32 +38,22 @@ const menuItems = {
         { name: "Es Jeruk", price: 5000 },
         { name: "Es The", price: 5000 },
         { name: "Es Cincau Full Cream", price: 10000 },
-    ],
-    "Cemilan": [
-        { name: "Mie Peluk", price: 10000 },
-        { name: "Basreng", price: 12000 }
-    ],
-    "Frozen": [
-        { name: "Bakso Frozen Biasa", price: 120000 },
-        { name: "Bakso Frozen Urat", price: 150000 },
-        { name: "Bumbu Bakso", price: 50000 },
-        { name: "Tetelan Presto", price: 50000 }
     ]
 };
 
-// Fungsi untuk memformat harga dengan titik pemisah ribuan
+// Format harga
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-// Fungsi untuk menampilkan menu secara dinamis berdasarkan kategori
+// Tampilkan menu
 function displayMenu() {
     const menuDiv = document.getElementById('menu');
-    
+
     for (const category in menuItems) {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('category');
-        
+
         const categoryTitle = document.createElement('h3');
         categoryTitle.textContent = category;
         categoryDiv.appendChild(categoryTitle);
@@ -74,10 +64,7 @@ function displayMenu() {
         menuItems[category].forEach(item => {
             const menuItemDiv = document.createElement('div');
             menuItemDiv.classList.add('menu-item');
-            menuItemDiv.onclick = function() {
-                addToCart(item.name, item.price);
-            };
-
+            menuItemDiv.onclick = () => addToCart(item.name, item.price);
             menuItemDiv.innerHTML = `<p>${item.name} - Rp ${formatPrice(item.price)}</p>`;
             menuGrid.appendChild(menuItemDiv);
         });
@@ -87,101 +74,63 @@ function displayMenu() {
     }
 }
 
-// Fungsi untuk menambahkan item ke keranjang
-function addToCart(itemName, itemPrice) {
-    cart.push({ name: itemName, price: itemPrice });
-    total += itemPrice;
+// Keranjang
+function addToCart(name, price) {
+    cart.push({ name, price });
+    total += price;
     updateCart();
 }
 
-// Fungsi untuk memperbarui tampilan keranjang
 function updateCart() {
     const cartList = document.getElementById('cart-list');
-    cartList.innerHTML = '';
-
+    cartList.innerHTML = "";
     cart.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - Rp ${formatPrice(item.price)}`;
         cartList.appendChild(li);
     });
-
-    document.getElementById('total').textContent = `Rp ${formatPrice(total)}`;
+    document.getElementById('total').textContent = `Total: Rp ${formatPrice(total)}`;
 }
 
-// Fungsi untuk memproses pembayaran dan menyimpan transaksi offline
+// Checkout
 function checkout() {
-    if (cart.length === 0) {
-        alert('Keranjang kosong, silakan pilih menu!');
-        return;
-    }
+    if (!cart.length) return alert("Keranjang kosong!");
+    const customer = document.getElementById('customer-name').value.trim();
+    if (!customer) return alert("Masukkan nama pelanggan / nomor meja");
 
-    const customerName = document.getElementById('customer-name').value.trim();
-    if (!customerName) {
-        alert('Harap masukkan nama pelanggan atau nomor meja!');
-        return;
-    }
+    const transaction = { customerName: customer, items: cart, total, date: new Date().toLocaleString() };
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    transactions.push(transaction);
+    localStorage.setItem('transactions', JSON.stringify(transactions));
 
-    const transaction = {
-        customerName: customerName, // Menyimpan nama pelanggan atau nomor meja
-        items: cart,
-        total: total,
-        date: new Date().toLocaleString()
-    };
-
-    // Simpan transaksi secara offline menggunakan localStorage
-    saveTransactionOffline(transaction);
-
-    alert('Pembayaran berhasil, transaksi telah disimpan!');
+    alert("Transaksi berhasil!");
     cart = [];
     total = 0;
     updateCart();
 }
 
-// Fungsi untuk menyimpan transaksi secara offline menggunakan localStorage
-function saveTransactionOffline(transaction) {
-    const existingTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    existingTransactions.push(transaction);
-    localStorage.setItem('transactions', JSON.stringify(existingTransactions));
+// Reset
+function resetManual() {
+    if (confirm("Hapus semua transaksi?")) {
+        localStorage.removeItem('transactions');
+        alert("Data transaksi berhasil direset");
+    }
 }
 
-// Fungsi untuk mengekspor transaksi ke Excel
+// Export
 function exportToExcel() {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    if (transactions.length === 0) {
-        alert('Tidak ada data untuk diekspor');
-        return;
-    }
+    if (!transactions.length) return alert("Tidak ada data untuk diekspor");
 
-    // Membuat array yang berisi transaksi dalam format yang sesuai untuk Excel
-    const formattedTransactions = transactions.map(transaction => {
-        const transactionItems = transaction.items.map(item => `${item.name} - Rp ${formatPrice(item.price)}`).join(", ");
-        return {
-            'Tanggal': transaction.date,
-            'Nama Pelanggan / Nomor Meja': transaction.customerName, // Menambahkan nama pelanggan atau nomor meja
-            'Items': transactionItems,
-            'Total': `Rp ${formatPrice(transaction.total)}`,
-        };
+    const formatted = transactions.map(t => {
+        const items = t.items.map(i => `${i.name} - Rp ${formatPrice(i.price)}`).join(", ");
+        return { Tanggal: t.date, "Nama Pelanggan / Nomor Meja": t.customerName, Items: items, Total: `Rp ${formatPrice(t.total)}` };
     });
 
-    // Mengonversi data transaksi ke format worksheet untuk SheetJS
-    const ws = XLSX.utils.json_to_sheet(formattedTransactions);
+    const ws = XLSX.utils.json_to_sheet(formatted);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Transaksi');
-
-    // Unduh file Excel
-    XLSX.writeFile(wb, 'Laporan_Transaksi.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, "Transaksi");
+    XLSX.writeFile(wb, "Laporan_Transaksi.xlsx");
 }
 
-// Fungsi untuk reset data transaksi manual
-function resetManual() {
-    const confirmation = confirm("Apakah Anda yakin ingin menghapus semua transaksi?");
-    if (confirmation) {
-        localStorage.removeItem('transactions'); // Menghapus semua data transaksi
-        alert('Data transaksi berhasil di-reset!');
-    }
-}
-
-// Panggil displayMenu() untuk menampilkan menu ketika halaman dimuat
-window.onload = function() {
-    displayMenu();
-};
+window.onload = displayMenu;
