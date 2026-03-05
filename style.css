@@ -6,7 +6,6 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -42,6 +41,7 @@ header {
     margin-bottom: 10px;
 }
 
+/* Grid hanya untuk kategori tertentu */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -49,7 +49,6 @@ header {
     margin-top: 10px;
 }
 
-/* Menu item */
 .menu-item {
     background-color: #fff;
     padding: 20px;
@@ -133,27 +132,10 @@ button:not(.reset-button):not(.export-button) { background-color: #4CAF50; color
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-#cart-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
+#cart-list { list-style: none; padding: 0; margin: 0; }
 #cart-list li { margin-bottom: 10px; font-size: 16px; }
-
 #total { font-weight: bold; font-size: 18px; text-align: right; }
 
-/* Responsif */
-@media (max-width: 768px) {
-    .menu-grid { grid-template-columns: repeat(2, 1fr); }
-    .category h3 { font-size: 24px; }
-    header { font-size: 24px; }
-}
-
-@media (max-width: 480px) {
-    .menu-grid { grid-template-columns: 1fr; }
-    .category h3 { font-size: 20px; }
-    header { font-size: 20px; }
-    input, button { font-size: 14px; padding: 10px; }
-    #cart { max-width: 300px; }
-}
+/* Responsive */
+@media (max-width: 768px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .menu-grid { grid-template-columns: 1fr; } }
