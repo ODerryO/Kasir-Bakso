@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir Bakso</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kasir Bakso</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -20,8 +20,9 @@
     <input type="text" id="customer-name" placeholder="Masukkan nama atau nomor meja">
 
     <button type="button" onclick="checkout()">Checkout</button>
+        <button type="button" class="export-button" onclick="exportToExcel()">Export ke Excel</button>
     <button type="button" class="reset-button" onclick="resetManual()">Reset Transaksi</button>
-    <button type="button" class="export-button" onclick="exportToExcel()">Export ke Excel</button>
+
 </form>
 
 <!-- Keranjang -->

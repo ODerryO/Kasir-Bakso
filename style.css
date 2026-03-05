@@ -18,7 +18,7 @@ header {
     color: #333;
 }
 
-/* Menu Grid */
+/* Menu */
 #menu {
     display: flex;
     flex-direction: column;
@@ -42,7 +42,6 @@ header {
     margin-bottom: 10px;
 }
 
-/* Hanya kategori tertentu di grid */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -50,6 +49,7 @@ header {
     margin-top: 10px;
 }
 
+/* Menu item */
 .menu-item {
     background-color: #fff;
     padding: 20px;
@@ -122,6 +122,7 @@ button:hover { opacity: 0.9; }
 
 button:not(.reset-button):not(.export-button) { background-color: #4CAF50; color: #fff; }
 
+/* Keranjang */
 #cart {
     width: 100%;
     max-width: 400px;
@@ -138,18 +139,11 @@ button:not(.reset-button):not(.export-button) { background-color: #4CAF50; color
     margin: 0;
 }
 
-#cart-list li {
-    margin-bottom: 10px;
-    font-size: 16px;
-}
+#cart-list li { margin-bottom: 10px; font-size: 16px; }
 
-#total {
-    font-weight: bold;
-    font-size: 18px;
-    text-align: right;
-}
+#total { font-weight: bold; font-size: 18px; text-align: right; }
 
-/* Media Queries untuk Responsif */
+/* Responsif */
 @media (max-width: 768px) {
     .menu-grid { grid-template-columns: repeat(2, 1fr); }
     .category h3 { font-size: 24px; }
@@ -157,7 +151,7 @@ button:not(.reset-button):not(.export-button) { background-color: #4CAF50; color
 }
 
 @media (max-width: 480px) {
-    .menu-grid { grid-template-columns: repeat(1, 1fr); }
+    .menu-grid { grid-template-columns: 1fr; }
     .category h3 { font-size: 20px; }
     header { font-size: 20px; }
     input, button { font-size: 14px; padding: 10px; }
