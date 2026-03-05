@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Bakso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    Menu Makanan
+</header>
+
+<div id="menu"></div>
+
+<!-- Form untuk input nama pelanggan atau nomor meja -->
+<form id="order-form">
+    <label for="customer-name">Nama Pelanggan / Nomor Meja</label>
+    <input type="text" id="customer-name" placeholder="Masukkan nama atau nomor meja">
+    <button type="button" onclick="checkout()">Checkout</button>
+    <button type="button" class="reset-button" onclick="resetManual()">Reset Transaksi</button>
+</form>
+
+<!-- Keranjang dan Total -->
+<div id="cart">
+    <ul id="cart-list"></ul>
+    <div id="total">Total: Rp 0</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
